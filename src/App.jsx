@@ -1,50 +1,65 @@
 import { useState } from 'react';
 // import reactLogo from './assets/react.svg';
 // import viteLogo from '/vite.svg';
-import './App.css';
-import FooterPop from './components/FooterPop';
+// import './App.css';
+import 'onsenui/css/onsenui.css';
+import 'onsenui/css/onsen-css-components.css';
+import { Page, Button, Toolbar, BottomToolbar, ToolbarButton, Toast, Card } from 'react-onsenui';
+import ons from 'onsenui';
+import ReloadPrompt from './components/ReloadPrompt';
 
-function App() {
-  const [openPopup, setOpenPopup] = useState(true);
+export default function App() {
+  const [openPopup, setOpenPopup] = useState(false);
 
+  let alert = () => {
+    ons.notification.alert("Hello");
+  };
 
-  function togglePopup() {
+  let toast = () => {
     setOpenPopup(!openPopup);
-    console.log(openPopup);
-  }
+  };
 
   return (
-    <div>
-      <div className="App">
 
-        {/* <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div> */}
-        <h1>Vite + React</h1>
-        <div className="card">
-          {/* <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button> */}
-          <button onClick={togglePopup}>
-            Toggle Popup
-          </button>
-          {/* <p>
-            Edit <code>src/App.jsx</code> and save to test HMR
-          </p> */}
+    <Page
+      renderToolbar={
+        () =>
+          <Toolbar>
+            {/* <div className='left'>
+              <ToolbarButton >Menu</ToolbarButton>
+            </div> */}
+            <div className='center'>Top toolbar</div>
+            <div className='right'>
+              <ToolbarButton >Toolbar button</ToolbarButton>
+            </div>
+          </Toolbar>
+      }
+
+      renderBottomToolbar={
+        () => null
+        // <BottomToolbar >
+        //   Bottom toolbar
+        // </BottomToolbar>
+      }
+    >
+
+
+
+
+      <Card>
+        <div style={{ textAlign: "center" }}>
+          <Button onClick={alert}>Alert</Button>
+          <Button onClick={toast}>Toast</Button>
         </div>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
+      </Card>
 
-      </div>
-      <FooterPop open={openPopup} />
-    </div>
+      <Toast visible={openPopup}>
+        <div className='message' style={{ textAlign: "center" }}>Hello</div>
+      </Toast>
+
+      <ReloadPrompt />
+
+    </Page>
+
   );
 }
-
-export default App;
